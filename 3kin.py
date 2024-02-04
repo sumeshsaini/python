@@ -1,0 +1,13 @@
+from tkinter import*
+root=Tk()
+root.geometry("655x333")
+root.title("Welcome")
+f1 = Frame(root,bg="green",borderwidth=8,relief="groove")
+f1.pack(side='left',fill=Y)
+f2 = Frame(root,borderwidth=10,bg="pink",relief="groove")
+f2.pack(side="top",fill=X)
+l = Label(f1,text="Work")
+l.pack(pady=142)
+l2=Label(f2,text="Done",fg='red',font=("comicsansms",18,'bold','italic'))
+l2.pack()
+root.mainloop()
