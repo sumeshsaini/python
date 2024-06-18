@@ -1,0 +1,98 @@
+class Employee:
+    def __init__(self, name, designation, gender, date_of_joining, salary):
+        self.name = name
+        self.designation = designation
+        self.gender = gender
+        self.date_of_joining = date_of_joining
+        self.salary = salary
+
+class EmployeeManagement:
+    def __init__(self):
+        self.employees = []
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+
+    def total_employees(self):
+        return len(self.employees)
+
+    def count_gender(self):
+        male_count = sum(1 for emp in self.employees if emp.gender.lower() == 'male')
+        female_count = sum(1 for emp in self.employees if emp.gender.lower() == 'female')
+        return male_count, female_count
+
+    def salary_above_10000(self):
+        return [emp for emp in self.employees if emp.salary > 10000]
+
+    def find_by_designation(self, designation):
+        return [emp for emp in self.employees if emp.designation.lower() == designation.lower()]
+
+    def display_all_employees(self):
+        print("Employee Details:")
+        for emp in self.employees:
+            print("Name:", emp.name)
+            print("Designation:", emp.designation)
+            print("Gender:", emp.gender)
+            print("Date of Joining:", emp.date_of_joining)
+            print("Salary:", emp.salary)
+            print()
+
+# Function to display menu
+def display_menu():
+    print("Employee Management System")
+    print("1. Add Employee")
+    print("2. Total number of Employees")
+    print("3. Count of Male and Female Employees")
+    print("4. Employees with Salary above 10,000")
+    print("5. Employees with Designation Asst Manager")
+    print("6. Display All Employees")
+    print("7. Exit")
+
+# Function to add an employee
+def add_employee():
+    name = input("Enter Name: ")
+    designation = input("Enter Designation: ")
+    gender = input("Enter Gender: ")
+    date_of_joining = input("Enter Date of Joining: ")
+    salary = float(input("Enter Salary: "))
+    return Employee(name, designation, gender, date_of_joining, salary)
+
+# Main function
+def main():
+    emp_mgmt = EmployeeManagement()
+
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            emp = add_employee()
+            emp_mgmt.add_employee(emp)
+            print("Employee added successfully!\n")
+
+        elif choice == '2':
+            print("Total number of employees:", emp_mgmt.total_employees())
+
+        elif choice == '3':
+            male_count, female_count = emp_mgmt.count_gender()
+            print("Male employees:", male_count)
+            print("Female employees:", female_count)
+
+        elif choice == '4':
+            print("Employees with salary more than 10,000:", [emp.name for emp in emp_mgmt.salary_above_10000()])
+
+        elif choice == '5':
+            print("Employees with designation Asst Manager:", [emp.name for emp in emp_mgmt.find_by_designation("Asst Manager")])
+
+        elif choice == '6':
+            emp_mgmt.display_all_employees()
+
+        elif choice == '7':
+            print("Exiting program...")
+            break
+
+        else:
+            print("Invalid choice. Please try again.\n")
+
+if __name__ == "__main__":
+    main()
