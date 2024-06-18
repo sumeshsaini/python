@@ -1,14 +1,13 @@
-s=open("D:\Programing\INTERNAL II\Assig 11.txt" ,mode='r')
-number_of_words=0
-number_of_words_chars=0
-number_of_line=0
-for line in s:
-    number_of_line+=1
-    line=line.strip("\n")
-    number_of_words_chars+=len(line)
-    list1=line.split()
-    number_of_words+=len(list1)
-s.close
-print("number of lines:" ,number_of_line)
-print("number of lines:" ,number_of_words)
-print("number of lines:" ,number_of_line)
+def checkpas(pas):
+    if len(pas)<8 or len(pas)>32:
+        return f"{pas} is invalid password"
+    if not pas[0].isalpha():
+        return f"{pas} is invalid password"
+    c = "/\\='\""
+    for check in pas:
+        if check in c:
+            return f"{pas} is invalid password"
+    else:
+         return f"{pas} is valid"
+pas=input("Enter Password : ")
+print(checkpas(pas))
