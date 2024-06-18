@@ -18,8 +18,8 @@ while k:
             if ok == 'no':
                 z = False
     if u == 2:
-        for i, details in enumerate(patient_list,start=1):
-            print(f"\nPatient{i}")
+        for i, details in enumerate( patient_list, start = 1):
+            print(f"\nPatient {i}")
             for k, value in details.items():
                 print(f"{k.capitalize()}:{value}")
     if u == 3:

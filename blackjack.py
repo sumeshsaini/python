@@ -1,9 +1,12 @@
-def black_jack(a,b,c):
-    d = (a+b+c)
-    if d<=21:
-        return d
-    elif d>21 and a ==11 or b==11 or c == 11:
-        return(d-10)
-    elif d>21:
-        return 'BUST'
-print(black_jack(9,9,11))
+import random
+your_name = input("Enter your name : ")
+def b_card () :
+    """Selects a random card from the deck of cards"""
+    cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
+    card = random.choice(cards)
+    return card
+user_card = []
+computer_card = []
+for _ in range(2):
+    user_card.append(b_card)
+    computer_card.append(b_card)
