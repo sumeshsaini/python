@@ -11,5 +11,5 @@ c=Label(text="News Paper",bg="blue",fg="red",font=("comicsansms",20,"bold","ital
 image_path=PhotoImage(file=r"C:\Users\Sumesh Saini\Pictures\newspaper-icon-28.png")
 c.pack(side="top",fill=X)
 bimage =tkinter.Label(root,image=image_path)
-bimage.pack()
+bimage.pack(side="top",fill=X)
 mainloop()
