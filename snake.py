@@ -1,83 +1,67 @@
- 
 import pygame
-import sys
 import random
-
-# Initialize Pygame
 pygame.init()
 
-# Set up display
-width, height = 600, 400
-cell_size = 20
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Snake Game")
+screen_width = 600
+screen_height = 400
 
-# Set up colors
-black = (0, 0, 0)
-white = (255, 255, 255)
-red = (255, 0, 0)
+#colors
+white = (255,255,255)
+red = (255,0,0)
+black = (0,0,0)
 
-# Set up snake
-snake = [(100, 100), (90, 100), (80, 100)]
-snake_direction = (1, 0)  # Initial direction (right)
-snake_speed = 20
-snake_timer = pygame.time.Clock()
+#creating a window
+game_window = pygame.display.set_mode((screen_width,screen_height))
+pygame.display.set_caption("Cobra X Python")
+pygame.display.update()
 
-# Set up food
-food = (random.randrange(1, (width//cell_size)) * cell_size,
-        random.randrange(1, (height//cell_size)) * cell_size)
+#game specific vari
+exit_game = False
+game_over = False
+snake_x = 20
+snake_y = 20
+size = 20
+fps = 30
+clock = pygame.time.Clock()
+velocity_x = 0
+velocity_y = 0
+food_x = random.randint(0,screen_width)
+food_y = random.randint(0,screen_height)
+score = 0
 
-# Main game loop
-running = True
 
-while running:
+#game loop 
+while not exit_game:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and snake_direction != (0, 1):
-                snake_direction = (0, -1)
-            elif event.key == pygame.K_DOWN and snake_direction != (0, -1):
-                snake_direction = (0, 1)
-            elif event.key == pygame.K_LEFT and snake_direction != (1, 0):
-                snake_direction = (-1, 0)
-            elif event.key == pygame.K_RIGHT and snake_direction != (-1, 0):
-                snake_direction = (1, 0)
+        if event.type== pygame.QUIT:
+            exit_game=True
+        if event.type==pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                velocity_x = 10
+                velocity_y = 0
+            if event.key == pygame.K_LEFT:
+                velocity_x = -10
+                velocity_y = 0
+            if event.key == pygame.K_UP:
+                velocity_y = -10
+                velocity_x = 0
+            if event.key == pygame.K_DOWN:
+                velocity_y = 10
+                velocity_x = 0
 
-    # Move the snake
-    head = (snake[0][0] + snake_direction[0] * cell_size,
-            snake[0][1] + snake_direction[1] * cell_size)
-    snake = [head] + snake[:-1]
 
-    # Check for collisions with the walls
-    if (
-        head[0] < 0 or head[0] >= width or
-        head[1] < 0 or head[1] >= height
-    ):
-        running = False
-
-    # Check for collisions with itself
-    if head in snake[1:]:
-        running = False
-
-    # Check for collisions with food
-    if head == food:
-        snake.append(snake[-1])  # Grow the snake
-        food = (random.randrange(1, (width//cell_size)) * cell_size,
-                random.randrange(1, (height//cell_size)) * cell_size)
-
-    # Draw everything
-    screen.fill(black)
-    pygame.draw.rect(screen, red, (food[0], food[1], cell_size, cell_size))
-    for segment in snake:
-        pygame.draw.rect(screen, white, (segment[0], segment[1], cell_size, cell_size))
-
-    # Update display
-    pygame.display.flip()
-
-    # Cap the frame rate
-    snake_timer.tick(snake_speed)
-
-# Quit Pygame
+    snake_x+=velocity_x
+    snake_y+=velocity_y
+        
+    if abs(snake_x-food_x)<6 and abs(snake_y-food_y)<6:
+        score+=1
+        print(f"Score : {score}")
+        food_x = random.randint(0,screen_width)
+        food_y = random.randint(0,screen_height)
+    game_window.fill(white)
+    pygame.draw.rect(game_window,black,(snake_x,snake_y,size,size))
+    pygame.draw.rect(game_window,red,(food_x,food_y,size,size))
+    pygame.display.update()
+    clock.tick(fps)
 pygame.quit()
-sys.exit()
+quit()
